@@ -1,0 +1,12 @@
+const express = require('express');
+const path = require('path');
+
+const app = express();
+app.use(express.static(path.join(__dirname, 'public')));
+
+const webRoutes = require('./routes/webRoutes');
+app.use('/', webRoutes);
+
+app.listen(8000, () => {
+  console.log('Server running on http://192.168.1.229:8000');
+});

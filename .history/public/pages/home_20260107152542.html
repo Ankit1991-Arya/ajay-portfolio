@@ -1,0 +1,24 @@
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+        <button onclick="payNow()">Pay ₹1500</button>
+        
+        <script>
+          async function payNow() {
+            const response = await fetch('/create-order', { method: 'POST' });
+            const order = await response.json();
+        
+            const options = {
+              key: 'YOUR_KEY_ID',
+              amount: order.amount,
+              currency: order.currency,
+              order_id: order.id,
+              name: 'My App',
+              description: 'Test Transaction',
+              handler: function (res) {
+                alert('Payment Successful: ' + res.razorpay_payment_id);
+              }
+            };
+        
+            const rzp = new Razorpay(options);
+            rzp.open();
+          }
+        </script>
